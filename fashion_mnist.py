@@ -30,14 +30,21 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=batch_size,
                                           shuffle=False)
 
-
 # Logistic regression model
+
+model  = nn.Linear(input_size, num_classes)
 
 # Loss and optimizer
 # nn.CrossEntropyLoss() computes softmax internally
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
-# # Train the model
 
+state_dict = torch.load("./state_dict.pt")
+
+model.load_state_dict(state_dict)
+model.to("cpu")
+torch.save(model.state_dict(), "./state_dict_cpu.pt")
 # Test the model
 # In test phase, we don't need to compute gradients (for memory efficiency)
 

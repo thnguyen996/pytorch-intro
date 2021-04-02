@@ -18,9 +18,11 @@ test_dataset = datasets.FashionMNIST(
    train=False
    )
 
-import pdb; pdb.set_trace()
 ## Plot the dataset
 ## We can index dataset just like using normal tensor training_data[0]
+img, label = train_dataset[0]
+
+
 
 labels_map = {
        0: "T-Shirt",
@@ -35,3 +37,6 @@ labels_map = {
        9: "Ankle Boot",
    }
 
+plt.imshow(img.squeeze(), cmap="gray")
+plt.title(labels_map[label])
+mpld3.show(port=6019, open_browser=False)
