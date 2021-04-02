@@ -38,7 +38,6 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
 
 # # Train the model
 
-
 # Test the model
 # In test phase, we don't need to compute gradients (for memory efficiency)
 
