@@ -44,8 +44,19 @@ state_dict = torch.load("./state_dict.pt")
 
 model.load_state_dict(state_dict)
 model.to("cpu")
-torch.save(model.state_dict(), "./state_dict_cpu.pt")
+
 # Test the model
 # In test phase, we don't need to compute gradients (for memory efficiency)
+with torch.no_grad():
+    correct = 0
+    total = 0
+    for images, labels in test_loader:
+        images = images.reshape(-1, input_size)
+        outputs = model(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum()
 
-# Save the model checkpoint
+    print('Accuracy of the model on the 10000 test images: {} %'.format(100 * correct / total))
+
+
